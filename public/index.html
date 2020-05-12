@@ -19,17 +19,23 @@
       integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="./woah.css" />
   </head>
   <body>
     <div class="fixed-header">
       <header>
-        <h1>Ph◌t❍sphericål</h1>
+        <h1 class="woah comeInStyle">Ph◌t❍sphericål</h1>
       </header>
     </div>
 
     <section class="photo-feed"></section>
 
-    <div class="fixed-btn" onclick="openForm()">
+    <div
+      id="fixed-btn"
+      class="fixed-btn"
+      onclick="openForm()"
+      style="display: none;"
+    >
       <svg
         class="bi bi-plus-circle fixed-btn"
         width="3em"
@@ -56,7 +62,7 @@
       </svg>
     </div>
 
-    <div class="form-popup" id="myForm">
+    <div class="form-popup woah pulse" id="myForm">
       <button
         type="button"
         class="close"

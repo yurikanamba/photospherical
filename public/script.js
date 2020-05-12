@@ -5,6 +5,12 @@ function openForm() {
 function closeForm() {
   document.getElementById("myForm").style.display = "none";
 }
+
+window.addEventListener("scroll", () => {
+  document.getElementById("fixed-btn").style.display = "block";
+});
+
+//Photo Uploader
 const progressBar = document.getElementById("uploader");
 const uploadBtn = document.getElementById("upload-btn");
 uploadBtn.addEventListener("change", (e) => {

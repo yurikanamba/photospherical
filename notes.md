@@ -48,3 +48,13 @@ https://tutorialzine.com/2013/09/20-impressive-examples-for-learning-webgl-with-
 
 Music visualizer
 https://github.com/KanteLabs/Music-Visualizer
+
+For presentation:
+What challenges did you face?
+What did you learn?
+What Technologies did you use? Why?
+A Demo of your Project
+
+Readme:
+https://github.com/matiassingers/awesome-readme
+https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
