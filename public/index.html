@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Photospehrical</title>
+    <style>
+      body {
+        margin: 0;
+      }
+      canvas {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Photospehrical</h1>
+      <progress value="0" max="100" id="uploader">0%</progress>
+      <label for="upload-btn">Upload a picture you want to sphericize:</label>
+      <input
+        type="file"
+        name="upload-btn"
+        id="upload-btn"
+        accept="image/png, image/jpeg"
+      />
+    </header>
+    <section class="photo-feed"></section>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-app.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-storage.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyBGaAKD72gtoxTeCfFf1umG42FQ2lL6_H0",
+        authDomain: "photospherical-16cf2.firebaseapp.com",
+        databaseURL: "https://photospherical-16cf2.firebaseio.com",
+        projectId: "photospherical-16cf2",
+        storageBucket: "photospherical-16cf2.appspot.com",
+        messagingSenderId: "1002426338463",
+        appId: "1:1002426338463:web:b6282828a914f5103066aa",
+        measurementId: "G-3Q0933QL6E",
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      //firebase.analytics();
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
