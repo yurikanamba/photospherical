@@ -6,7 +6,6 @@ body {
   margin: 0;
   padding: 0;
   font-family: "DM Mono";
-  height: 100%;
 }
 
 .fixed-header {
@@ -25,7 +24,7 @@ h1 {
   font-family: "Poiret One";
   font-size: 50px;
   margin: 0;
-  padding-bottom: 30px;
+  padding: 30px;
 }
 
 canvas {
@@ -37,10 +36,47 @@ canvas {
   text-align: center;
 }
 
-.fixed-uploader {
+.fixed-btn {
   position: sticky;
   bottom: 0px;
-  height: 70px;
-  width: 100%;
-  background: #fff;
+  left: 25px;
+  height: 100px;
+}
+
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 5vw;
+  background-color: #fff;
+  color: #212529;
+  border-radius: 25px;
+  border: 0.4px solid #404040;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.close {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+}
+
+label {
+  margin: 35px 30px 30px 30px;
+}
+
+input[type="file"] {
+  display: none;
+}
+.custom-file-upload {
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  margin: 10px;
 }

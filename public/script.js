@@ -1,4 +1,10 @@
 //Photo Uploader
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
 const progressBar = document.getElementById("uploader");
 const uploadBtn = document.getElementById("upload-btn");
 uploadBtn.addEventListener("change", (e) => {
@@ -13,11 +19,11 @@ uploadBtn.addEventListener("change", (e) => {
     "state_changed",
     function progress(snapshot) {
       var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      progressBar.value = percentage;
       if (snapshot.state === "running") console.log("Upload is running");
       if (snapshot.state === "paused") console.log("Upload is paused");
       if (snapshot.bytesTransferred === snapshot.totalBytes)
         alert("Upload is complete!");
+      closeForm();
     },
     function error(err) {
       console.log(err.code);
