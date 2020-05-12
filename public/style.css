@@ -1,0 +1,46 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "DM Mono";
+  height: 100%;
+}
+
+.fixed-header {
+  top: 0;
+  width: 100%;
+  position: fixed;
+  background: #fff;
+}
+
+header {
+  margin: 0;
+  text-align: center;
+}
+
+h1 {
+  font-family: "Poiret One";
+  font-size: 50px;
+  margin: 0;
+  padding-bottom: 30px;
+}
+
+canvas {
+  margin: 0px;
+}
+
+.photo-feed {
+  margin-top: 155px;
+  text-align: center;
+}
+
+.fixed-uploader {
+  position: sticky;
+  bottom: 0px;
+  height: 70px;
+  width: 100%;
+  background: #fff;
+}

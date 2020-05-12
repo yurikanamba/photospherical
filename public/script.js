@@ -44,15 +44,17 @@ photos.listAll().then((result) => {
 //display photos
 function init(url) {
   let renderer = new THREE.WebGLRenderer();
+  renderer.domElement.classList.add("sphere");
   //to make objects sharper edges you can anti-alias
   //var renderer = new THREE.WebGLRenderer({antialias: true});
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setSize(window.innerWidth * 0.6, window.innerHeight * 0.6);
   //you can set background color
   //renderer.setClearColor(0x140b33, 1);
   photoFeed.appendChild(renderer.domElement);
   //allow you to set up what and where is to be rendered
   //where you place objects, lights and cameras
   let scene = new THREE.Scene();
+  scene.background = new THREE.Color(0xffffff);
   let camera = new THREE.PerspectiveCamera(
     //field of view is the extent of the sene that is seen on the display at any given moment
     //the value is in degrees
@@ -107,15 +109,14 @@ function init(url) {
   };
   animate();
 
+  //resize the renderer when window resizes
   function onWindowResize() {
     //set camera fresttrum? ratio
-    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.aspect = (window.innerWidth * 0.6) / (window.innerHeight * 0.6);
     //update camera
     camera.updateProjectionMatrix();
     //set renderer size
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(window.innerWidth * 0.6, window.innerHeight * 0.6);
   }
-
-  //when window resizes
   window.addEventListener("resize", onWindowResize);
 }

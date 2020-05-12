@@ -3,20 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Photospehrical</title>
-    <style>
-      body {
-        margin: 0;
-      }
-      canvas {
-        width: 100%;
-        height: 100%;
-      }
-    </style>
+    <title>Ph◌t❍spehricål</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <header>
-      <h1>Photospehrical</h1>
+    <div class="fixed-header">
+      <header>
+        <h1>Ph◌t❍sphericål</h1>
+      </header>
+    </div>
+
+    <section class="photo-feed"></section>
+
+    <div class="fixed-uploader">
+      <i class="fa fa-plus-square" aria-hidden="true"></i>
       <progress value="0" max="100" id="uploader">0%</progress>
       <label for="upload-btn">Upload a picture you want to sphericize:</label>
       <input
@@ -25,8 +33,7 @@
         id="upload-btn"
         accept="image/png, image/jpeg"
       />
-    </header>
-    <section class="photo-feed"></section>
+    </div>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-app.js"></script>
@@ -52,6 +59,7 @@
       //firebase.analytics();
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.js"></script>
+    <script src="https://use.fontawesome.com/ca6ffdb042.js"></script>
     <script src="./script.js"></script>
   </body>
 </html>
