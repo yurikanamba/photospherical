@@ -28,24 +28,22 @@ uploadBtn.addEventListener("change", (e) => {
 //Download Photos and store photo urls in array
 const photoFeed = document.querySelector(".photo-feed");
 const photos = firebase.storage().ref("photos/");
-const photoURLs = {};
 photos.listAll().then((result) => {
   result.items.forEach((imageRef) => {
     imageRef
       .getDownloadURL()
-      .then((url) => init(url))
+      .then((url) => {
+        init(url);
+      })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
+      });
   });
 });
 
-console.log("PhotoURLs :", photoURLs);
-console.log("PhotoURLs values: ", Object.values(photoURLs));
-
 //display photos
-let scene, camera, renderer, cube, sphere;
 function init(url) {
-  renderer = new THREE.WebGLRenderer();
+  let renderer = new THREE.WebGLRenderer();
   //to make objects sharper edges you can anti-alias
   //var renderer = new THREE.WebGLRenderer({antialias: true});
   renderer.setSize(window.innerWidth, window.innerHeight);
@@ -54,8 +52,8 @@ function init(url) {
   photoFeed.appendChild(renderer.domElement);
   //allow you to set up what and where is to be rendered
   //where you place objects, lights and cameras
-  scene = new THREE.Scene();
-  camera = new THREE.PerspectiveCamera(
+  let scene = new THREE.Scene();
+  let camera = new THREE.PerspectiveCamera(
     //field of view is the extent of the sene that is seen on the display at any given moment
     //the value is in degrees
     75,
@@ -87,40 +85,37 @@ function init(url) {
   //mesh takes a geometry and applies a material to it
   //cube = new THREE.Mesh(geometry, material);
 
-  sphere = new THREE.Mesh(geometry, material);
-  sphere.scale.x = -1;
+  let sphere = new THREE.Mesh(geometry, material);
 
   //insert into scene
   //automatically added to coordinates (0, 0, 0)
   //this causes both camera and cube to be inside each other so move the camera out
   //scene.add(cube);
   scene.add(sphere);
+
+  //ANIMATE THE SPHERE
+  const animate = function () {
+    //pauses when user navigates to another browser tab
+    requestAnimationFrame(animate);
+
+    //will be run every frame and gives rotation animation
+    //changes numbers to change speed of rotation
+    sphere.rotation.x += 0.001;
+    sphere.rotation.y += 0.001;
+
+    renderer.render(scene, camera);
+  };
+  animate();
+
+  function onWindowResize() {
+    //set camera fresttrum? ratio
+    camera.aspect = window.innerWidth / window.innerHeight;
+    //update camera
+    camera.updateProjectionMatrix();
+    //set renderer size
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  }
+
+  //when window resizes
+  window.addEventListener("resize", onWindowResize);
 }
-
-//creates a loop that causes renderer to draw the scene every time the screen is refreshed (typically 60 times per second)
-var animate = function () {
-  //pauses when user navigates to another browser tab
-  requestAnimationFrame(animate);
-
-  //will be run every frame and gives rotation animation
-  //changes numbers to change speed of rotation
-  sphere.rotation.x += 0.001;
-  sphere.rotation.y += 0.001;
-
-  renderer.render(scene, camera);
-};
-
-function onWindowResize() {
-  //set camera fresttrum? ratio
-  camera.aspect = window.innerWidth / window.innerHeight;
-  //update camera
-  camera.updateProjectionMatrix();
-  //set renderer size
-  renderer.setSize(window.innerWidth, window.innerHeight);
-}
-
-//when window resizes
-window.addEventListener("resize", onWindowResize);
-
-//init();
-animate();
