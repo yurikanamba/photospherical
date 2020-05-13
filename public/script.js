@@ -1,22 +1,21 @@
 //TOGGLE
 const photoFeed = document.querySelector(".photo-feed");
-const playground = document.getElementsByClassName("playground");
+const playground = document.getElementById("playground");
+const feed = document.getElementById("feed");
 const toggleBtn = document.getElementById("toggle");
 
 toggleBtn.addEventListener("click", (e) => {
   if (e.target.value === "feed") {
-    console.log("HIDE PLAYGROUND");
-    playground.style.display = "none";
+    document.getElementById("feed").style.display = "block";
+    document.getElementById("playground").style.display = "none";
     document.getElementById("toggle").innerHTML = "Playground";
     document.getElementById("toggle").value = "playground";
   }
 
-  if (e.target.value === "playground") {
-    console.log("REMOVE FEED");
-    playground.style.display = "block";
-    document.getElementById("toggle").innerHTML = "Feed";
-    document.getElementById("toggle").value = "feed";
-  }
+  document.getElementById("playground").style.display = "block";
+  document.getElementById("feed").style.display = "none";
+  document.getElementById("toggle").innerHTML = "Feed";
+  document.getElementById("toggle").value = "feed";
 });
 
 //UPLOAD PHOT TO FIREBASE
@@ -72,14 +71,15 @@ photos.listAll().then((result) => {
         if (i === result.items.length - 1) {
           init(photoURLs);
         }
+      })
+      .catch((err) => {
+        console.log(err);
       });
-    // .catch((err) => {
-    //   console.log(err);
-    // });
   });
 });
 
-//FROM TEST
+//THREE JS CODE FROM HERE
+//PLAYGROUND
 var container, camera, scene, renderer, effect;
 var spheres = [];
 var mouseX = 0;
@@ -93,7 +93,8 @@ function init(photoURLs) {
   console.log("photoURLs Array/Object?", photoURLs);
 
   container = document.createElement("div");
-  container.classList.add("playground");
+  container.id = "playground";
+  container.style.display = "none";
   photoFeed.appendChild(container);
 
   camera = new THREE.PerspectiveCamera(
@@ -169,7 +170,7 @@ function render() {
   renderer.render(scene, camera);
 }
 
-//THREE JS CODE FROM HERE
+//FEED
 function init2(url) {
   let renderer = new THREE.WebGLRenderer();
   renderer.domElement.classList.add("sphere");
@@ -236,8 +237,8 @@ function init2(url) {
 
     //will be run every frame and gives rotation animation
     //changes numbers to change speed of rotation
-    // sphere.rotation.x += 0.001;
-    // sphere.rotation.y += 0.001;
+    sphere.rotation.x += 0.01;
+    sphere.rotation.y += 0.01;
     renderer.render(scene, camera);
   };
   animate();
@@ -252,6 +253,4 @@ function init2(url) {
     renderer.setSize(window.innerWidth * 0.6, window.innerHeight * 0.6);
   }
   window.addEventListener("resize", onWindowResize);
-
-  playground.style.display = "none";
 }

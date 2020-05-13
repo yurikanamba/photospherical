@@ -20,11 +20,17 @@ body {
   width: 100%;
   position: fixed;
   background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 header {
-  margin: 0;
-  text-align: center;
+}
+
+#toggle {
+  margin-bottom: 10px;
 }
 
 h1 {
