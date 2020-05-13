@@ -1,6 +1,13 @@
 * {
   box-sizing: border-box;
 }
+a h1 {
+  color: #404040;
+}
+
+a h1:visited {
+  color: #404040;
+}
 
 body {
   margin: 0;
@@ -24,7 +31,8 @@ h1 {
   font-family: "Poiret One";
   font-size: 50px;
   margin: 0;
-  padding: 30px;
+  padding: 15px;
+  display: inline-block;
 }
 
 canvas {

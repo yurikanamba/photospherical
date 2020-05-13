@@ -1,16 +1,28 @@
-//Photo Uploader
-function openForm() {
-  document.getElementById("myForm").style.display = "block";
-}
-function closeForm() {
-  document.getElementById("myForm").style.display = "none";
-}
+//TOGGLE
+const photoFeed = document.querySelector(".photo-feed");
+const playground = document.getElementsByClassName("playground");
+const toggleBtn = document.getElementById("toggle");
 
+toggleBtn.addEventListener("click", (e) => {
+  if (e.target.value === "feed") {
+    console.log("HIDE PLAYGROUND");
+    playground.style.display = "none";
+    document.getElementById("toggle").innerHTML = "Playground";
+    document.getElementById("toggle").value = "playground";
+  }
+
+  if (e.target.value === "playground") {
+    console.log("REMOVE FEED");
+    playground.style.display = "block";
+    document.getElementById("toggle").innerHTML = "Feed";
+    document.getElementById("toggle").value = "feed";
+  }
+});
+
+//UPLOAD PHOT TO FIREBASE
 window.addEventListener("scroll", () => {
   document.getElementById("fixed-btn").style.display = "block";
 });
-
-//Photo Uploader
 const progressBar = document.getElementById("uploader");
 const uploadBtn = document.getElementById("upload-btn");
 uploadBtn.addEventListener("change", (e) => {
@@ -36,25 +48,129 @@ uploadBtn.addEventListener("change", (e) => {
     }
   );
 });
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
 
-//Download Photos and store photo urls in array
-const photoFeed = document.querySelector(".photo-feed");
+//DOWNLOAD PHOTOS FROM FIREBASE
+const photoURLs = [];
 const photos = firebase.storage().ref("photos/");
 photos.listAll().then((result) => {
-  result.items.forEach((imageRef) => {
+  const photoURLs = [];
+  result.items.forEach((imageRef, i) => {
     imageRef
       .getDownloadURL()
       .then((url) => {
-        init(url);
+        photoURLs.push(url);
+        init2(url);
+        return photoURLs;
       })
-      .catch((err) => {
-        console.log(err);
+      .then((photoURLs) => {
+        if (i === result.items.length - 1) {
+          init(photoURLs);
+        }
       });
+    // .catch((err) => {
+    //   console.log(err);
+    // });
   });
 });
 
-//display photos
-function init(url) {
+//FROM TEST
+var container, camera, scene, renderer, effect;
+var spheres = [];
+var mouseX = 0;
+var mouseY = 0;
+var windowHalfX = window.innerWidth;
+var windowHalfY = window.innerHeight;
+document.addEventListener("mousemove", onDocumentMouseMove, false);
+//init(photoURLs);
+animate();
+function init(photoURLs) {
+  console.log("photoURLs Array/Object?", photoURLs);
+
+  container = document.createElement("div");
+  container.classList.add("playground");
+  photoFeed.appendChild(container);
+
+  camera = new THREE.PerspectiveCamera(
+    60,
+    window.innerWidth / window.innerHeight,
+    0.01,
+    100
+  );
+  camera.position.z = 3;
+  camera.focalLength = 3;
+
+  scene = new THREE.Scene();
+  scene.background = new THREE.Color(0xffffff);
+
+  var geometry = new THREE.SphereBufferGeometry(0.1, 32, 16);
+
+  for (var i = 0; i < photoURLs.length; i++) {
+    const texture = new THREE.TextureLoader().load(photoURLs[i]);
+    const material = new THREE.MeshBasicMaterial({ map: texture });
+
+    var mesh = new THREE.Mesh(geometry, material);
+    mesh.position.x = Math.random() * 10 - 5;
+    mesh.position.y = Math.random() * 10 - 5;
+    mesh.position.z = Math.random() * 10 - 5;
+    mesh.scale.x = mesh.scale.y = mesh.scale.z = Math.random() * 3 + 3;
+    scene.add(mesh);
+    spheres.push(mesh);
+  }
+
+  renderer = new THREE.WebGLRenderer();
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  container.appendChild(renderer.domElement);
+
+  window.addEventListener("resize", onWindowResize, false);
+}
+
+function onWindowResize() {
+  windowHalfX = window.innerWidth;
+  windowHalfY = window.innerHeight;
+
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+
+  effect.setSize(window.innerWidth, window.innerHeight);
+}
+
+function onDocumentMouseMove(event) {
+  mouseX = (event.clientX - windowHalfX) / 100;
+  mouseY = (event.clientY - windowHalfY) / 100;
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+  render();
+}
+
+function render() {
+  var timer = 0.0001 * Date.now();
+
+  camera.position.x += (mouseX - camera.position.x) * 0.05;
+  camera.position.y += (-mouseY - camera.position.y) * 0.05;
+
+  camera.lookAt(scene.position);
+
+  for (var i = 0, il = spheres.length; i < il; i++) {
+    var sphere = spheres[i];
+
+    sphere.position.x = 5 * Math.cos(timer + i);
+    sphere.position.y = 5 * Math.sin(timer + i * 1.1);
+  }
+
+  renderer.render(scene, camera);
+}
+
+//THREE JS CODE FROM HERE
+function init2(url) {
   let renderer = new THREE.WebGLRenderer();
   renderer.domElement.classList.add("sphere");
   //to make objects sharper edges you can anti-alias
@@ -62,7 +178,11 @@ function init(url) {
   renderer.setSize(window.innerWidth * 0.6, window.innerHeight * 0.6);
   //you can set background color
   //renderer.setClearColor(0x140b33, 1);
-  photoFeed.appendChild(renderer.domElement);
+  container = document.createElement("div");
+  container.classList.add("playground");
+  const feedContainer = document.getElementById("feed");
+  feedContainer.appendChild(renderer.domElement);
+
   //allow you to set up what and where is to be rendered
   //where you place objects, lights and cameras
   let scene = new THREE.Scene();
@@ -79,6 +199,8 @@ function init(url) {
     1000
     //objects further away from the cammera than the value of far or closer than near won't be rendered
   );
+
+  //camera.position.set(0, 20, 100);
   camera.position.z = 10;
   //   camera.position.set(100, -400, 2000);
   //   adding camera to the scene
@@ -114,9 +236,8 @@ function init(url) {
 
     //will be run every frame and gives rotation animation
     //changes numbers to change speed of rotation
-    sphere.rotation.x += 0.001;
-    sphere.rotation.y += 0.001;
-
+    // sphere.rotation.x += 0.001;
+    // sphere.rotation.y += 0.001;
     renderer.render(scene, camera);
   };
   animate();
@@ -131,4 +252,6 @@ function init(url) {
     renderer.setSize(window.innerWidth * 0.6, window.innerHeight * 0.6);
   }
   window.addEventListener("resize", onWindowResize);
+
+  playground.style.display = "none";
 }
