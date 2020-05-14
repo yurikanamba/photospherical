@@ -3,6 +3,8 @@ const photoFeed = document.querySelector(".photo-feed");
 const playground = document.getElementById("playground");
 const feed = document.getElementById("feed");
 const toggleBtn = document.getElementById("toggle");
+const spheresArr = document.getElementsByClassName("sphere");
+console.log(spheresArr.length);
 
 toggleBtn.addEventListener("click", (e) => {
   if (e.target.value === "feed") {
@@ -36,12 +38,13 @@ uploadBtn.addEventListener("change", (e) => {
   task.on(
     "state_changed",
     function progress(snapshot) {
-      var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       if (snapshot.state === "running") console.log("Upload is running");
       if (snapshot.state === "paused") console.log("Upload is paused");
-      if (snapshot.bytesTransferred === snapshot.totalBytes)
+      if (snapshot.bytesTransferred === snapshot.totalBytes) {
         alert("Upload is complete!");
-      closeForm();
+        closeForm();
+        location.reload();
+      }
     },
     function error(err) {
       console.log(err.code);
