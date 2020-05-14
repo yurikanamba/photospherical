@@ -6,16 +6,17 @@ const toggleBtn = document.getElementById("toggle");
 
 toggleBtn.addEventListener("click", (e) => {
   if (e.target.value === "feed") {
+    console.log(document.getElementById("feed").style.display);
     document.getElementById("feed").style.display = "block";
     document.getElementById("playground").style.display = "none";
     document.getElementById("toggle").innerHTML = "Playground";
     document.getElementById("toggle").value = "playground";
+  } else {
+    document.getElementById("playground").style.display = "block";
+    document.getElementById("feed").style.display = "none";
+    document.getElementById("toggle").innerHTML = "Feed";
+    document.getElementById("toggle").value = "feed";
   }
-
-  document.getElementById("playground").style.display = "block";
-  document.getElementById("feed").style.display = "none";
-  document.getElementById("toggle").innerHTML = "Feed";
-  document.getElementById("toggle").value = "feed";
 });
 
 //UPLOAD PHOT TO FIREBASE
@@ -80,7 +81,7 @@ photos.listAll().then((result) => {
 
 //THREE JS CODE FROM HERE
 //PLAYGROUND
-var container, camera, scene, renderer, effect;
+var container, camera, scene, renderer;
 var spheres = [];
 var mouseX = 0;
 var mouseY = 0;
@@ -90,11 +91,8 @@ document.addEventListener("mousemove", onDocumentMouseMove, false);
 //init(photoURLs);
 animate();
 function init(photoURLs) {
-  console.log("photoURLs Array/Object?", photoURLs);
-
   container = document.createElement("div");
   container.id = "playground";
-  container.style.display = "none";
   photoFeed.appendChild(container);
 
   camera = new THREE.PerspectiveCamera(
@@ -138,8 +136,6 @@ function onWindowResize() {
 
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
-
-  effect.setSize(window.innerWidth, window.innerHeight);
 }
 
 function onDocumentMouseMove(event) {
@@ -176,11 +172,10 @@ function init2(url) {
   renderer.domElement.classList.add("sphere");
   //to make objects sharper edges you can anti-alias
   //var renderer = new THREE.WebGLRenderer({antialias: true});
-  renderer.setSize(window.innerWidth * 0.6, window.innerHeight * 0.6);
+  renderer.setSize(window.innerWidth / 2, window.innerHeight / 2, false);
+
   //you can set background color
   //renderer.setClearColor(0x140b33, 1);
-  container = document.createElement("div");
-  container.classList.add("playground");
   const feedContainer = document.getElementById("feed");
   feedContainer.appendChild(renderer.domElement);
 
@@ -210,7 +205,7 @@ function init2(url) {
   //an object that contains all the vertices and faces of the cube
   //depth, width, height
   // const geometry = new THREE.BoxGeometry(1, 1, 1);
-  const geometry = new THREE.SphereGeometry(5, 32, 32);
+  const geometry = new THREE.SphereGeometry(4, 32, 32);
   //material to colour the cube
   //const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
   //   const material = new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('./anish_kapoor.jpg') });
@@ -246,11 +241,11 @@ function init2(url) {
   //resize the renderer when window resizes
   function onWindowResize() {
     //set camera fresttrum? ratio
-    camera.aspect = (window.innerWidth * 0.6) / (window.innerHeight * 0.6);
+    camera.aspect = window.innerWidth / window.innerHeight;
     //update camera
     camera.updateProjectionMatrix();
     //set renderer size
-    renderer.setSize(window.innerWidth * 0.6, window.innerHeight * 0.6);
+    renderer.setSize(window.innerWidth / 2, window.innerHeight / 2, false);
   }
   window.addEventListener("resize", onWindowResize);
 }
