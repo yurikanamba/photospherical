@@ -3,6 +3,7 @@
 [Photospherical](https://photospherical-16cf2.web.app/) is a new way of seeing and sharing photos. Upload a photo to create a spherical version of it and share it with a world! You can interact with the photos in feed view or playground view.
 
 **Feed view**
+
 ![Photospherical Feed View](/photospherical_ss_1.png)
 
 **Playground view**
