@@ -8,7 +8,7 @@
 
 **Playground view**
 
-![Photospherical Playground View](/photospherical_ss_2.png)
+![Photospherical Playground View](/photospherical_ss2.png)
 
 ## 🔨 Built With
 
