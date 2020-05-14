@@ -2,12 +2,13 @@
 
 [Photospherical](https://photospherical-16cf2.web.app/) is a new way of seeing and sharing photos. Upload a photo to create a spherical version of it and share it with a world! You can interact with the photos in feed view or playground view.
 
-**Feed view**
+## Feed View
+
 ![Photospherical Feed View](/photospherical_ss_1.png)
 
-**Playground view**
+## Playground View
 
-![Photospherical Playground View](/photospherical_ss_2.png)
+![Photospherical Playground View](/photospherical_ss2.png)
 
 ## 🔨 Built With
 
@@ -16,10 +17,6 @@
 - [three.js](https://threejs.org/) - JavaScript 3d Library
 - [Bootstrap](https://getbootstrap.com/) - Front-end component library
 - [Bootstrap](https://github.com/joerez/woah.css/) - CSS Animation Library
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## License
 
